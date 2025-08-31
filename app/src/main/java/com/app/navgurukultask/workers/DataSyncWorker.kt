@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.app.navgurukultask.data.local.dao.StudentDao
+import com.app.navgurukultask.data.local.dao.StudentScorecardDao
 import com.app.navgurukultask.data.local.database.AppDatabase
 import com.app.navgurukultask.data.local.entities.SyncStatus
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,6 +18,8 @@ class DataSyncWorker(
 
     val studentDao: StudentDao =
         AppDatabase.Companion.getInstance(context).studentDao()
+    val scoreDao: StudentScorecardDao =
+        AppDatabase.Companion.getInstance(context).scoreCardDao()
     val firestore = FirebaseFirestore.getInstance()
 
         override suspend fun doWork(): Result {
@@ -33,6 +36,17 @@ class DataSyncWorker(
                         .await()
 
                     studentDao.updateStudent(student.copy(syncStatus = SyncStatus.SYNCED))
+                }
+
+                val unsyncedStudentsScore = scoreDao.getUnsyncedScoreCards()
+                unsyncedStudentsScore.forEach { score ->
+                    val docRef = firestore.collection("student_scores").document(score.id.toString())
+                    Log.d("WORKER", score.id)
+
+                    docRef.set(score)
+                        .await()
+
+                    scoreDao.updateScoreCard(score.copy(syncStatus = SyncStatus.SYNCED))
                 }
 
                 Result.success()
