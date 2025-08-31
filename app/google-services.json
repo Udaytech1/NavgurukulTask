@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "635817769719",
+    "project_id": "navgurukul-751e9",
+    "storage_bucket": "navgurukul-751e9.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:635817769719:android:62fd51f70ffc56370fb1f2",
+        "android_client_info": {
+          "package_name": "com.app.navgurukultask"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBoQhAldYEpFFeOk0syzb3ytUrcpob94uQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
