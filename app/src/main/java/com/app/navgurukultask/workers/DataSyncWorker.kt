@@ -40,7 +40,7 @@ class DataSyncWorker(
 
                 val unsyncedStudentsScore = scoreDao.getUnsyncedScoreCards()
                 unsyncedStudentsScore.forEach { score ->
-                    val docRef = firestore.collection("student_scores").document(score.id.toString())
+                    val docRef = firestore.collection("scorecards").document(score.id.toString())
                     Log.d("WORKER", score.id)
 
                     docRef.set(score)
